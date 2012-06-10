@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html>
+<meta charset="utd-8">
+<title>../../git/k2012-ohpe/setti1/008.Summaaja/</title>
+</head>
+<body><pre class = "sh_java">
+
+import java.util.Scanner;
+
+public class Summaaja {
+
+    public static void main(String[] args) {
+        Scanner lukija = new Scanner(System.in);
+
+        // Toteuta ohjelmasi tähän. Muista kysyä kaksi lukua käyttäjältä!
+        // BEGIN SOLUTION
+        System.out.print(&quot;Anna ensimmäinen luku: &quot;);
+        int ekaLuku = Integer.parseInt(lukija.nextLine());
+        System.out.print(&quot;Anna toinen luku: &quot;);
+        int tokaLuku = Integer.parseInt(lukija.nextLine());
+
+        System.out.println(&quot;&quot;); // tyhjä rivi
+        System.out.println(&quot;Lukujen summa: &quot; + (ekaLuku + tokaLuku));
+        // END SOLUTION
+    }
+}
+</pre>
+<pre class = "sh_java">
+
+import fi.helsinki.cs.tmc.edutestutils.MockStdio;
+import fi.helsinki.cs.tmc.edutestutils.Points;
+import fi.helsinki.cs.tmc.edutestutils.ReflectionUtils;
+import static org.junit.Assert.assertTrue;
+import org.junit.Rule;
+import org.junit.Test;
+
+@Points(&quot;8&quot;)
+public class SummajaTest {
+
+    @Rule
+    public MockStdio io = new MockStdio();
+
+    @Test
+    public void testSummaaja() {
+        summaajaToimii(6, 2);
+    }
+    
+    @Test
+    public void testSummaajaNegatiivisilla() {
+        summaajaToimii(-10, -5);
+    }
+    
+    @Test
+    public void testSummaajaNollilla() {
+        summaajaToimii(0, 0);
+    }
+    
+    private void summaajaToimii(int ekaLuku, int tokaLuku) {
+        ReflectionUtils.newInstanceOfClass(Summaaja.class);
+        io.setSysIn(ekaLuku + &quot;\n&quot; + tokaLuku + &quot;\n&quot;);
+        Summaaja.main(new String[0]);
+
+        String out = io.getSysOut();
+
+        assertTrue(&quot;Et kysynyt käyttäjältä mitään!&quot;, out.trim().length() &gt; 0);
+        
+        assertTrue(&quot;Kysymyksessäsi pitäisi olla merkki :, nyt ei ollut. Kysyit oli: &quot;+out,
+                   out.contains(&quot;:&quot;));
+        
+        assertTrue(&quot;Tulosteessasi pitäisi olla teksti \&quot;Lukujen summa:\&quot;, nyt ei ollut. Tulosteesi oli: &quot;+out,
+                   out.contains(&quot;ukujen summa:&quot;));
+
+        String summaMjono = out.substring(out.indexOf(&quot;summa:&quot;) + &quot;summa:&quot;.length());
+
+        int summa = ekaLuku + tokaLuku;
+        assertTrue(&quot;Laskun &quot; + ekaLuku + &quot; + &quot; + tokaLuku + &quot; summan pitäisi olla &quot; + summa + &quot;, ehdotit: &quot; + summaMjono, summaMjono.contains(&quot;&quot; + summa));
+    }
+}
+</pre>
+</body>
+</html> 
