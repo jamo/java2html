@@ -30,7 +30,7 @@ js = %Q{ <link rel="stylesheet" href="stylesheets/common.css" type="text/css" me
 @inside = ""
 def find_all_files dest_path
   filetype = "java"
-  excludes = ["classes","test","lib","tlds"]
+  excludes = ["test","lib"]
   files = Array.new
   Find.find(dest_path) do |path|
     if FileTest.directory?(path)
