@@ -8,4 +8,7 @@ How to use?
 
      ./r.rb /path/to/netbeans/project/ html_file.html
 
-Copy html_file.html and folders stylesheets and javascripts
+Following files are reguired for syntax hilight to work
+* html_file.html
+* stylesheets folder
+* javascripts folder
