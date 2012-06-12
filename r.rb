@@ -64,7 +64,7 @@ def go_thru_files all_files
   for path in all_files
     File.open path,'r' do |f1|
       while line = f1.gets
-        strings << CGI::escapeHTML(line)
+        strings << CGI::escapeHTML(line.gsub('\t','    '))
       end
       add_to_HTML strings, path
       strings = []
