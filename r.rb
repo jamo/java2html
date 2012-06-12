@@ -27,6 +27,7 @@ js = %Q{ <link rel="stylesheet" href="stylesheets/common.css" type="text/css" me
     <link rel="stylesheet" href="stylesheets/exercises.css" type="text/css" media="screen, print" />}
 
 @to_html = %Q{<!DOCTYPE HTML>\n<html>\n<meta charset="utf-8">\n<title>#{dest_path}</title>\n#{js}\n</script>\n</head>\n<body>}
+@to_html << %Q{ <h1>#{dest_path.split('/').last} </h1>}
 @inside = ""
 def find_all_files dest_path
   filetype = "java"
@@ -48,7 +49,9 @@ def find_all_files dest_path
   files
 end
 
-def add_to_HTML strings
+def add_to_HTML strings, path
+  result = path.split('/').slice(ARGV[0].split('/').length+1, path.length).join('/')
+  @inside << %Q{ <h3>#{result}</h3> }
   @inside << %Q{<pre class="sh_java">\n}
   strings.each do |string|
     @inside << string
@@ -63,7 +66,7 @@ def go_thru_files all_files
       while line = f1.gets
         strings << CGI::escapeHTML(line)
       end
-      add_to_HTML strings
+      add_to_HTML strings, path
       strings = []
     end
   end
@@ -78,7 +81,7 @@ go_thru_files all_files
 @to_html << @inside
 @to_html << %Q{</body>\n</html> }
 
-#puts @to_html
+
 
 File.open html_file_name,'w+' do |f|
   f.puts @to_html
