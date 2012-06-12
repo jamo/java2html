@@ -6,7 +6,7 @@ This script goes thru given NetBeans project folder and finds every .java file f
 How to use?
 -----------
 
-     ./java2html.rb /path/to/netbeans/project/ html_file.html
+     ./r.rb /path/to/netbeans/project/ html_file.html
 
 Following files are reguired for syntax hilight to work
 * html_file.html
